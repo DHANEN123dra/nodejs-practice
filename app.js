@@ -61,7 +61,8 @@ app.post("/movies/",async (request,response)=>{
   INSERT INTO 
     movie (director_id,movie_name,lead_actor) 
   VALUES 
-  ('${directorId}','${movieName}','${leadActor}');`;
+  (
+  ${directorId},'${movieName}','${leadActor}');`;
   await db.run(postMovieaDetailes)
   response.send("Movie Successfully Added")
 });
@@ -112,7 +113,7 @@ app.get("/directors/:directorId/movies/",async(request,response) =>{
   FROM 
    movie 
   WHERE 
-   director_id = '${directorId}';`
+   director_id = ${directorId};`
   
   const directorMovies = await db.all(movienamesQuery)
   response.send(directorMovies.map(eachMovie=>({movieName:eachMovie.movie_name})))
