@@ -44,7 +44,7 @@ app.get('/movies/', async (request, response) => {
     SELECT movie_name FROM movie;`
   let movieNameArray = await db.all(moviesNameQuery)
   response.send(
-    movieNameArray.map(eachMovie => {movieName: eachMovie.movie_name})
+    movieNameArray.map(eachMovie =>{return {movieName: eachMovie.movie_name}})
   )
 });
 
@@ -109,13 +109,13 @@ app.get("/directors/:directorId/movies/",async(request,response) =>{
   const {directorId} = request.body;
   const movienamesQuery = `
   SELECT 
-   movie_name 
+   movie.movie_name as movieName 
   FROM 
-   movie 
+   director NATURAL JOIN movie 
   WHERE 
-   director_id = ${directorId};`
+   director.director_id = ${directorId};`
   
   const directorMovies = await db.all(movienamesQuery)
-  response.send(directorMovies.map(eachMovie=>({movieName:eachMovie.movie_name})))
+  response.send(directorMovies)
 })
 module.exports =app
