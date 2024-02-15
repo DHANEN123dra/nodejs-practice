@@ -107,7 +107,7 @@ app.get('/directors/', async (request, response) => {
 
 app.get("/directors/:directorId/movies/",async(request,response) =>{
   const {directorId} = request.params;
-  const movienamesQuery = `
+  const movieNameQuery = `
   SELECT 
    movie.movie_name as movieName 
   FROM 
@@ -115,7 +115,7 @@ app.get("/directors/:directorId/movies/",async(request,response) =>{
   WHERE 
    director.director_id = ${directorId};`
   
-  const directorMovies = await db.all(movienamesQuery)
+  const directorMovies = await db.all(movieNameQuery)
   response.send(directorMovies)
 })
 module.exports =app
