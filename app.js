@@ -50,7 +50,7 @@ app.get('/movies/', async (request, response) => {
 
 app.get('/movies/:movieId/', async (request, response) => {
   const {movieId} = request.params
-  const movieNameQuery = `SELECT movie_name FROM movie WHERE movie_id=${movieId};`
+  const movieNameQuery = `SELECT * FROM movie WHERE movie_id=${movieId};`
   const movie = await db.get(movieNameQuery)
   response.send(convertMovieDbObjectToResponseObject(movie))
 });
